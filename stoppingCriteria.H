@@ -2,20 +2,6 @@
 scalar areaLimit(readScalar(runTime.controlDict().lookup("areaLimit")));
 scalar executionTimeLimit(readScalar(runTime.controlDict().lookup("executionTimeLimit")));
 
-// access velocity field via reference
-// const volVectorField& U
-// (
-//     mesh.lookupObject<volVectorField>("U")
-// );
-//
-// const GeometricField<vector, fvPatchField, volMesh>& Ufield =
-// this->db().objectRegistry::
-// lookupObject<GeometricField<vector, fvPatchField, volMesh> >
-// (
-// "U"
-// );
-
-
 // access time variable
 scalar t = runTime.time().value();
 
@@ -52,9 +38,7 @@ Info << "Cummulative inflow area: " << cumulativeArea << endl;
 if (cumulativeArea > areaLimit) {
   Info << "INFO: stopping simulation due to cumulative area limit" << endl;
   runTime.writeAndEnd();
-  // return 0;
 } else if (executionTime/Pstream::nProcs() > executionTimeLimit) {
   Info << "INFO: stopping simulation due to execution time limit" << endl;
   runTime.writeAndEnd();
-  // return 0;
 }
